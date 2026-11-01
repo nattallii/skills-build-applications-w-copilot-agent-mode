@@ -48,7 +48,9 @@ export function CapabilityCard({ title, description, endpoint, collection, empty
     {items === null && !error && <p role="status">Loading {title.toLowerCase()}...</p>}
     {error && <p role="alert">Unable to load {title.toLowerCase()}: {error}</p>}
     {items?.length === 0 && <p>{emptyMessage}</p>}
-    {items && items.length > 0 && <ul className="list-group">
+    {items && items.length > 0 && <>
+      <p role="status">Loaded {title.toLowerCase()}.</p>
+      <ul className="list-group">
       {items.map((item, index) => <li className="list-group-item" key={index}>
         {item !== null && typeof item === 'object' && !Array.isArray(item)
           ? <dl className="row mb-0">{Object.entries(item).filter(([field]) => field !== '_id' && field !== '__v').map(([field, value]) => <div className="col-sm-6" key={field}>
@@ -56,6 +58,7 @@ export function CapabilityCard({ title, description, endpoint, collection, empty
           </div>)}</dl>
           : formatValue(item)}
       </li>)}
-    </ul>}
+      </ul>
+    </>}
   </div></section>;
 }

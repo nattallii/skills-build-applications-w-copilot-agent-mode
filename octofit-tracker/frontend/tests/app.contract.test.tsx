@@ -63,6 +63,11 @@ describe('OctoFit presentation contract', () => {
         expect(screen.getByRole('status')).toHaveTextContent(/loading/i);
       });
 
+      it('announces successful data', async () => {
+        renderRoute(capability.route);
+        await waitFor(() => expect(screen.getByRole('status')).toHaveTextContent(/loaded/i));
+      });
+
       it('shows a meaningful empty state', async () => {
         vi.stubGlobal('fetch', vi.fn(async () => new Response(JSON.stringify(capability.empty), { status: 200 })));
         renderRoute(capability.route);
